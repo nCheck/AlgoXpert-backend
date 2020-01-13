@@ -1,6 +1,6 @@
 import flask
 import os
-from flask import jsonify, request
+from flask import jsonify, request , render_template
 from flask import flash, redirect, url_for, session
 from joblib import load
 from flask_cors import CORS, cross_origin
@@ -13,7 +13,10 @@ from classifier import classify
 
 
 
-app = flask.Flask(__name__)
+app = flask.Flask(__name__ , 
+            static_url_path='', 
+            static_folder='static')
+
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.config["DEBUG"] = True
@@ -86,8 +89,15 @@ def predict():
             # print(x_train)
 
             result = classify( x_train,x_test,y_train,y_test )
+            labels = list(result.keys())
+            values = list(result.values())
 
-            return jsonify( result )
+            for i in range(4):
+                values[i] = 100 * values[i]
+
+            print(labels)
+            print(values)
+            return render_template('index.html' , labels = labels , values = values)
 
 
         else:
@@ -106,7 +116,7 @@ def predict():
 @app.route('/', methods=['GET'])
 def home():
     print("loaded")
-    return "Welcome to My API"
+    return render_template('index.html')
 
 
 
