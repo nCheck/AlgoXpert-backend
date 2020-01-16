@@ -97,7 +97,7 @@ def predict():
 
             print(labels)
             print(values)
-            return render_template('index.html' , labels = labels , values = values)
+            return render_template('classify_analysis.html' , labels = labels , values = values)
 
 
         else:
