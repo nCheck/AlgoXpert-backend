@@ -64,14 +64,14 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-            <form>
+            <form action="/predict" method="POST">
                 <!-- <div class="form-group">
                   <label for="exampleFormControlInput1">Email address</label>
                   <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
                 </div> -->
                 <div class="form-group">
                   <label for="exampleFormControlSelect1">Analysis type</label>
-                  <select class="form-control" id="exampleFormControlSelect1">
+                  <select class="form-control" name="antype" id="exampleFormControlSelect1">
                     <option>Regression</option>
                     <option>Classification</option>
                     <option>Clustering</option>
@@ -81,22 +81,45 @@
                 <br>
 
                 <div class="form-group">
-                    <div class="col-sm-2"> Choose Data Fields</div>
+                    <label for="exampleFormControlSelect1">Target Column</label>
+                    <select class="form-control" name="target" id="exampleFormControlSelect1">
+                    
+                    {%for i in range(0, l)%} 
+                    <option>{{cols[i]}}</option>
+                    {%endfor%}                     
+                     
+                    <option>None </option>
+
+                    </select>
+                  </div>
+                  <br>
+
+                <div class="form-group">
+                    <div class="col-sm-2"> Useless Datafields </div>
                     <div class="col-sm-10">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck1">
-                        <label class="form-check-label" for="gridCheck1">
-                          Example checkbox1
-                        </label>
-                      </div>
-                      <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="gridCheck1">
-                          <label class="form-check-label" for="gridCheck1">
-                            Example checkbox2
-                          </label>
+                        {%for i in range(0, l)%} 
+
+                        <div class="form-check">
+                            <input class="form-check-input" name="{{cols[i]}}" type="checkbox" id="gridCheck1">
+                            <label class="form-check-label" for="gridCheck1">
+                                {{cols[i]}}
+                            </label>
                         </div>
+
+                        {%endfor%}    
+
+
+                    </div>
+
+                  </div>
+
+                  
+                  <div class="form-group">
+                    <div class="col-lg-3 ml-6">
+                    <button class="form-check-input btn btn-primary " type="submit" id="">Submit</button>
                     </div>
                   </div>
+
               </form>
         </div>
 
