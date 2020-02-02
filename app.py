@@ -10,6 +10,9 @@ import requests
 import random
 from preprocessor import preprocess , findHeaderAndSEP
 from classifier import classify
+from regressor import regression
+from algo_data import getStats
+
 import re
 
 
@@ -45,28 +48,6 @@ def secure_filename(filename):
     return 'data.txt'
 
 
-# @app.route('/upload', methods=['POST'])
-# def upload_file():
-# 	if 'file' not in request.files:
-# 		resp = jsonify({'message' : 'No file part in the request'})
-# 		resp.status_code = 400
-# 		return resp
-# 	file = request.files['file']
-# 	if file.filename == '':
-# 		resp = jsonify({'message' : 'No file selected for uploading'})
-# 		resp.status_code = 400
-# 		return resp
-# 	if file and allowed_file(file.filename):
-# 		filename = secure_filename(file.filename)
-# 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-# 		resp = jsonify({'message' : 'File successfully uploaded' , 'filename' : filename})
-#         print("hello")  
-# 		resp.status_code = 201
-# 		return resp
-# 	else:
-# 		resp = jsonify({'message' : 'Allowed file types are txt, pdf, png, jpg, jpeg, gif'})
-# 		resp.status_code = 400
-# 		return resp
 
 
 @app.route('/upload', methods=['POST'])
@@ -107,7 +88,7 @@ def details():
     else:
         arr = line.split(SEP)
 
-    cols = arr
+    cols = pd.read_csv(fileloc , sep=SEP , header=HEADER).columns
 
     if HEADER is None:
         cols = [ i for i in range( len(arr) ) ]
@@ -122,8 +103,6 @@ def details():
 @app.route('/predict', methods=['GET' , 'POST'])
 def predict():
 
-    # print( json.dumps( request.json['data'] ) )
-
     if request.method == 'POST':
 
         antype = request.form['antype']
@@ -132,13 +111,31 @@ def predict():
         vals = request.form.keys()
         UNWANTED = []
 
+        try:
+            int(TARGET)
+            TARGET = int(TARGET)
+        except:
+            pass
+
         for v in vals:
             if request.form[v] == 'on':
                 UNWANTED.append(v)
 
-        if antype == 'Classification':
+        if antype == 'Clustering':
 
-            x_train,x_test,y_train,y_test = preprocess('data.txt', TARGET , UNWANTED )
+            data = preprocess('data.txt', None , UNWANTED )
+
+            return "Under Construction"
+
+        if antype == 'Association':
+
+            data = preprocess('data.txt', None , UNWANTED )
+
+            return "Under Construction"        
+
+        x_train,x_test,y_train,y_test = preprocess('data.txt', TARGET , UNWANTED )
+
+        if antype == 'Classification':
 
             result = classify( x_train,x_test,y_train,y_test )
             labels = list(result.keys())
@@ -150,51 +147,30 @@ def predict():
             print(labels)
             print(values)
 
-            return render_template('classify_analysis.html' , labels = labels , values = values)
+            analysis = getStats(labels)
+
+            return render_template('classify_analysis.html' , labels = labels , values = values , analysis = analysis)
 
         elif antype == 'Regression':
-            pass
+
+            result = regression( x_train,x_test,y_train,y_test )
+            labels = list(result.keys())
+            values = list(result.values())
+
+            print(labels)
+            print(values)
+
+            analysis = getStats(labels)
+
+            return render_template('regression_analysis.html' , labels = labels , values = values , analysis = analysis)
+        
         else:
 
             data = preprocess('data.txt', None , UNWANTED )
 
             return "Under Construction"
         
-
-    # Just to avoid errors
-    try :
-        print("hi")
-
-        LEARNING = request.args.get('learning')
-        TARGET = request.args.get('target')
-        UNWANTED = []
-        print(LEARNING , TARGET)
-        if LEARNING == 'supervised':
-
-            x_train,x_test,y_train,y_test = preprocess('data.txt', TARGET , UNWANTED )
-
-            # print(x_train)
-
-            result = classify( x_train,x_test,y_train,y_test )
-            labels = list(result.keys())
-            values = list(result.values())
-
-            for i in range(4):
-                values[i] = 100 * values[i]
-
-            print(labels)
-            print(values)
-            return render_template('classify_analysis.html' , labels = labels , values = values)
-
-
-        else:
-
-            data = preprocess('data.txt', None , UNWANTED )
-
-            return jsonify( { "result" : "Under Construction" } )
-
-    except Exception as e:
-        return jsonify( { "result" : "error" , "status"  : False  } )      
+      
 
 
 

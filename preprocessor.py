@@ -106,7 +106,8 @@ def findHeaderAndSEP(f):
         if a != b:
             HEADER = 0
             break
-
+    
+    # print("HEADER, SEP", HEADER , SEP)
     
     return HEADER , SEP
 
