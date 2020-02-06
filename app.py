@@ -135,6 +135,11 @@ def predict():
 
         x_train,x_test,y_train,y_test = preprocess('data.txt', TARGET , UNWANTED )
 
+        # print(y_test.dtype, "y_test")
+
+        if y_test.dtype == 'float64':
+            antype = 'Regression'
+
         if antype == 'Classification':
 
             result = classify( x_train,x_test,y_train,y_test )
@@ -157,12 +162,14 @@ def predict():
             labels = list(result.keys())
             values = list(result.values())
 
+            MAX = max(values) + 4
+
             print(labels)
             print(values)
 
             analysis = getStats(labels)
 
-            return render_template('regression_analysis.html' , labels = labels , values = values , analysis = analysis)
+            return render_template('regression_analysis.html' , labels = labels , values = values , analysis = analysis , MAX = MAX )
         
         else:
 

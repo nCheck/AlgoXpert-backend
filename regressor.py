@@ -105,9 +105,9 @@ def regression( x_train, x_test, y_train, y_test ):
 
     r1 = trees( x_train, x_test, y_train, y_test )
     r2 = lines( x_train, x_test, y_train, y_test )
-    r3 = ensembles( x_train, x_test, y_train, y_test )
+    # r3 = ensembles( x_train, x_test, y_train, y_test )
 
-    res = r1 + r2 + r3
+    res = r1 + r2 
 
     res.sort()
 

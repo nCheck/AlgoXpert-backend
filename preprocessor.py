@@ -1,7 +1,8 @@
 import pandas as pd
+import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
-
+from sklearn.impute import SimpleImputer
 
 
 def preprocess( FILE , TARGET , UNWANTED ):
@@ -22,6 +23,10 @@ def preprocess( FILE , TARGET , UNWANTED ):
     #Remove Unwanted
             
     data = data.drop(UNWANTED , axis=1)
+
+    # Keep Data with Finite Target
+
+    data = data[ np.isfinite( data[TARGET] ) ]
 
     #Remove more than half missing data
 
@@ -49,6 +54,10 @@ def preprocess( FILE , TARGET , UNWANTED ):
         if data[c].dtype == 'object':
             
             data = encode_and_bind(data , c)
+
+    imputer = SimpleImputer(missing_values=np.nan, strategy='mean')
+
+    data = imputer.fit_transform(data)
 
     if TARGET is None:
         return data

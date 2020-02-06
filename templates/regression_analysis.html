@@ -85,7 +85,7 @@
                                   <h6 class="m-0 font-weight-bold text-primary">Algorithm</h6>
                                 </div>
                                 <div class="card-body">
-                                    {{ labels[0] }} <br><br>
+                                    {{  analysis[ labels[0] ]['Description']  }} <br><br>
                                 </div>
                               </div>
                             </div>
@@ -98,7 +98,7 @@
                                   <h6 class="m-0 font-weight-bold text-primary">Pros</h6>
                                 </div>
                                 <div class="card-body">
-                                  A decision tree does not require normalization of data.<br>A decision tree does not require scaling of data as well.<br>
+                                  {{  analysis[ labels[0] ]['Pros'] }}
                                 </div>
                               </div>
                             </div>
@@ -111,7 +111,7 @@
                                   <h6 class="m-0 font-weight-bold text-primary">Cons</h6>
                                 </div>
                                 <div class="card-body">
-                                  Decision tree often involves higher time to train the model.<br>Decision tree training is relatively expensive as complexity and time taken is more.<br>
+                                  {{  analysis[ labels[0] ]['Cons'] }}
                                 </div>
                               </div>
                             </div>
@@ -124,9 +124,7 @@
                                   <h6 class="m-0 font-weight-bold text-primary">Tips</h6>
                                 </div>
                                 <div class="card-body">
-                                Use with:<br>
-                                Criterion:Gini<br>
-                                Splitter: Random
+                                  {{  analysis[ labels[0] ]['Tips'] }}
                                 </div>
                               </div>
     
@@ -156,7 +154,7 @@
                               <h6 class="m-0 font-weight-bold text-primary">Algorithm</h6>
                             </div>
                             <div class="card-body">
-                                {{ labels[1] }}<br><br>
+                              {{  analysis[ labels[1] ]['Description']  }}<br><br>
                             </div>
                           </div>
                         </div>
@@ -169,7 +167,7 @@
                               <h6 class="m-0 font-weight-bold text-primary">Pros</h6>
                             </div>
                             <div class="card-body">
-                              A decision tree does not require normalization of data.<br>A decision tree does not require scaling of data as well.<br>
+                              {{  analysis[ labels[1] ]['Pros'] }}
                             </div>
                           </div>
                         </div>
@@ -182,7 +180,7 @@
                               <h6 class="m-0 font-weight-bold text-primary">Cons</h6>
                             </div>
                             <div class="card-body">
-                              Decision tree often involves higher time to train the model.<br>Decision tree training is relatively expensive as complexity and time taken is more.<br>
+                              {{  analysis[ labels[1] ]['Cons'] }}
                             </div>
                           </div>
                         </div>
@@ -195,9 +193,7 @@
                               <h6 class="m-0 font-weight-bold text-primary">Tips</h6>
                             </div>
                             <div class="card-body">
-                            Use with:<br>
-                            Criterion:Gini<br>
-                            Splitter: Random
+                              {{  analysis[ labels[1] ]['Tips'] }}
                             </div>
                           </div>
 
@@ -230,7 +226,7 @@
                           <h6 class="m-0 font-weight-bold text-primary">Algorithm</h6>
                         </div>
                         <div class="card-body">
-                            {{ labels[2] }} <br><br>
+                          {{  analysis[ labels[2] ]['Description']  }} <br><br>
                         </div>
                       </div>
                     </div>
@@ -243,7 +239,7 @@
                           <h6 class="m-0 font-weight-bold text-primary">Pros</h6>
                         </div>
                         <div class="card-body">
-                          A decision tree does not require normalization of data.<br>A decision tree does not require scaling of data as well.<br>
+                          {{  analysis[ labels[2] ]['Pros'] }}
                         </div>
                       </div>
                     </div>
@@ -256,7 +252,7 @@
                           <h6 class="m-0 font-weight-bold text-primary">Cons</h6>
                         </div>
                         <div class="card-body">
-                          Decision tree often involves higher time to train the model.<br>Decision tree training is relatively expensive as complexity and time taken is more.<br>
+                          {{  analysis[ labels[2] ]['Cons'] }}
                         </div>
                       </div>
                     </div>
@@ -269,9 +265,7 @@
                           <h6 class="m-0 font-weight-bold text-primary">Tips</h6>
                         </div>
                         <div class="card-body">
-                        Use with:<br>
-                        Criterion:Gini<br>
-                        Splitter: Random
+                          {{  analysis[ labels[2] ]['Tips'] }}
                         </div>
                       </div>
 
@@ -301,7 +295,7 @@
                       <h6 class="m-0 font-weight-bold text-primary">Algorithm</h6>
                     </div>
                     <div class="card-body">
-                        {{ labels[3] }} <br><br>
+                      {{  analysis[ labels[3] ]['Description']  }} <br><br>
                     </div>
                   </div>
                 </div>
@@ -314,7 +308,7 @@
                       <h6 class="m-0 font-weight-bold text-primary">Pros</h6>
                     </div>
                     <div class="card-body">
-                      A decision tree does not require normalization of data.<br>A decision tree does not require scaling of data as well.<br>
+                      {{  analysis[ labels[3] ]['Pros'] }}
                     </div>
                   </div>
                 </div>
@@ -327,7 +321,7 @@
                       <h6 class="m-0 font-weight-bold text-primary">Cons</h6>
                     </div>
                     <div class="card-body">
-                      Decision tree often involves higher time to train the model.<br>Decision tree training is relatively expensive as complexity and time taken is more.<br>
+                      {{  analysis[ labels[3] ]['Cons'] }}
                     </div>
                   </div>
                 </div>
@@ -340,9 +334,7 @@
                       <h6 class="m-0 font-weight-bold text-primary">Tips</h6>
                     </div>
                     <div class="card-body">
-                    Use with:<br>
-                    Criterion:Gini<br>
-                    Splitter: Random
+                      {{  analysis[ labels[3] ]['Tips'] }}
                     </div>
                   </div>
 
@@ -513,8 +505,8 @@
         yAxes: [{
             ticks: {
             min: 0,
-            max: 100,
-            maxTicksLimit: 10,
+            max: {{ MAX }},
+            maxTicksLimit: 4,
             padding: 10,
             // Include a dollar sign in the ticks
             callback: function(value, index, values) {
