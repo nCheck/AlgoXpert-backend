@@ -8,9 +8,10 @@ import requests, json
 import pandas as pd
 import requests
 import random
-from preprocessor import preprocess , findHeaderAndSEP
+from preprocessor import preprocess , findHeaderAndSEP , xnormalize
 from classifier import classify
 from regressor import regression
+from clusterer import clustering
 from algo_data import getStats
 
 import re
@@ -124,8 +125,12 @@ def predict():
         if antype == 'Clustering':
 
             data = preprocess('data.txt', None , UNWANTED )
+            X_principal = xnormalize(data)
 
-            return "Under Construction"
+            result = clustering(X_principal)
+
+            return render_template('cluster_analysis.html')
+            # return "Done"
 
         if antype == 'Association':
 
@@ -174,8 +179,12 @@ def predict():
         else:
 
             data = preprocess('data.txt', None , UNWANTED )
+            X_principal = normalize(data)
 
-            return "Under Construction"
+            result = clustering(X_principal)
+
+            # return render_template('cluster_analysis.html')
+            return "Done"
         
       
 

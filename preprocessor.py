@@ -3,6 +3,8 @@ import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler, normalize
+from sklearn.decomposition import PCA
 
 
 def preprocess( FILE , TARGET , UNWANTED ):
@@ -26,7 +28,8 @@ def preprocess( FILE , TARGET , UNWANTED ):
 
     # Keep Data with Finite Target
 
-    data = data[ np.isfinite( data[TARGET] ) ]
+    if TARGET is not None:
+        data = data[ np.isfinite( data[TARGET] ) ]
 
     #Remove more than half missing data
 
@@ -122,6 +125,29 @@ def findHeaderAndSEP(f):
 
 
 
+
+
+def xnormalize(X):
+
+    # Scaling the data to bring all the attributes to a comparable level 
+    scaler = StandardScaler() 
+    X_scaled = scaler.fit_transform(X) 
+    
+    # Normalizing the data so that  
+    # the data approximately follows a Gaussian distribution 
+    X_normalized = normalize(X_scaled) 
+    
+    # Converting the numpy array into a pandas DataFrame 
+    X_normalized = pd.DataFrame(X_normalized) 
+
+
+
+    pca = PCA(n_components = 2) 
+    X_principal = pca.fit_transform(X_normalized) 
+    X_principal = pd.DataFrame(X_principal) 
+    X_principal.columns = ['P1', 'P2']
+
+    return X_principal
 
 
 
