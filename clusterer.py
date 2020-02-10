@@ -89,7 +89,7 @@ def aglo(X_principal):
 
     plt.figure(figsize =(8, 8)) 
     plt.title('Visualising the data') 
-    Dendrogram = shc.dendrogram((shc.linkage( resample(X_principal, n_samples=400, random_state=0) , method ='ward')))
+    Dendrogram = shc.dendrogram((shc.linkage( resample(X_principal, n_samples=350, random_state=0) , method ='ward')))
     plt.savefig('static/cluster/dendo.png') 
 
 
@@ -97,7 +97,8 @@ def aglo(X_principal):
     ac2 = AgglomerativeClustering(n_clusters = 3) 
     
     # Visualizing the clustering 
-    plt.figure(figsize =(6, 6)) 
+    plt.figure(figsize =(6, 6))
+    plt.title('Number of Clusters = 3')  
     plt.scatter(X_principal['P1'], X_principal['P2'],  
             c = ac2.fit_predict(X_principal), cmap ='rainbow') 
 
@@ -106,7 +107,8 @@ def aglo(X_principal):
     ac2 = AgglomerativeClustering(n_clusters = 4) 
     
     # Visualizing the clustering 
-    plt.figure(figsize =(6, 6)) 
+    plt.figure(figsize =(6, 6))
+    plt.title('Number of Clusters = 4') 
     plt.scatter(X_principal['P1'], X_principal['P2'],  
             c = ac2.fit_predict(X_principal), cmap ='rainbow') 
     # plt.show() 

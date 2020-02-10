@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Your PROJECT</title>
+  <title>Result Page</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -98,8 +98,15 @@
                                   <h6 class="m-0 font-weight-bold text-primary">Pros</h6>
                                 </div>
                                 <div class="card-body">
-                                  Is great at separating clusters of high density versus clusters of low density within a given dataset. <br>
-                                  Is great with handling outliers within the dataset.
+                                  <ul>
+                                    <li>
+                                      Is great at separating clusters of high density versus clusters of low density within a given dataset.
+                                    </li>
+                                    <li>
+                                      Is great with handling outliers within the dataset.
+                                    </li>
+                                  </ul>
+
                                 </div>
                               </div>
                             </div>
@@ -112,8 +119,16 @@
                                   <h6 class="m-0 font-weight-bold text-primary">Cons</h6>
                                 </div>
                                 <div class="card-body">
-                                  Does not work well when dealing with clusters of varying densities. While DBSCAN is great at separating high density clusters from low density clusters, DBSCAN struggles with clusters of similar density. <br>
-                                  Struggles with high dimensionality data. I know, this entire article I have stated how DBSCAN is great at contorting the data into different dimensions and shapes. However, DBSCAN can only go so far, if given data with too many dimensions, DBSCAN suffers
+                                  <ul>
+                                    <li>
+                                    Does not work well when dealing with clusters of varying densities. While DBSCAN is great at separating high density clusters from low density clusters, DBSCAN struggles with clusters of similar density.
+                                  </li>
+                                  <li>
+                                    Struggles with high dimensionality data. I know, this entire article I have stated how DBSCAN is great at contorting the data into different dimensions and shapes.
+                                    However, DBSCAN can only go so far, if given data with too many dimensions, DBSCAN suffers
+                                  </li>
+                                  </ul>
+
                                 </div>
                               </div>
                             </div>
@@ -126,7 +141,7 @@
                                   <h6 class="m-0 font-weight-bold text-primary">Results </h6>
                                 </div>
                                 <div class="card-body">
-                                  <img src="cluster/dbscan.png" alt="DBSCAN Image">
+                                  <img src="cluster/dbscan.png" height="360px" width="480px" alt="DBSCAN Image">
                                 </div>
                               </div>
     
@@ -139,7 +154,108 @@
 
           </div>
 
+          <div class=" col-lg-12">
+            <div class="card shadow mb-4">
+              <!-- Card Header - Accordion -->
+              <a href="#c2" class="d-block card-header py-3 collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="c2">
+                <h6 class="m-0 font-weight-bold text-primary"> Agglomerative Clustering </h6>
+              </a>
+              <!-- Card Content - Collapse -->
+              <div class="collapse" id="c2">
+                <div class="card-body">
+                <div class="row">
+                    <div class=" col-lg-6">
 
+                        <!-- Basic Card Example -->
+                        <div class="card shadow mb-4">
+                          <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Algorithm</h6>
+                          </div>
+                          <div class="card-body">
+                            <ul>
+                                <li>
+                                The agglomerative clustering is the most common type of hierarchical clustering used to group objects in clusters based on their similarity. It’s also known as AGNES (Agglomerative Nesting).
+                                </li>
+                                <li>
+                                 The algorithm starts by treating each object as a singleton cluster. Next, pairs of clusters are successively merged until all clusters have been merged into one big cluster containing all objects. The result is a tree-based representation of the objects, named dendrogram.
+                                </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+          
+                      <div class=" col-lg-6">
+          
+                        <!-- Basic Card Example -->
+                        <div class="card shadow mb-4">
+                          <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Pros & Cons</h6>
+                          </div>
+                          <div class="card-body">
+                            <h3>Pros</h3>
+                            <ul>
+                              <li> Single-link algorithms are best for capturing clusters of different sizes and shapes </li>
+                              <li> It's also sensitive to noise </li>
+                              <li> Complete link and group average are not affected by noise, but have a bias towards finding global patterns</li>
+                            </ul>
+
+                            <h3>Cons</h3>
+                            <ul>
+                              <li>
+                                Only Single-Link is computationally possible for large datasets, but it doesn't give good results because uses too little information
+                              </li>
+                            </ul>
+
+                          </div>
+                        </div>
+                      </div>
+          
+                      <div class=" col-lg-6">
+          
+                        <!-- Basic Card Example -->
+                        <div class="card shadow mb-4">
+                          <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Dendogram</h6>
+                          </div>
+                          <div class="card-body">
+
+                            <img src="cluster/dendo.png" height="360px" width="480px" alt="Dendo Image">
+
+                          </div>
+                        </div>
+                      </div>
+          
+                      <div class=" col-lg-6">
+          
+                        <!-- Basic Card Example -->
+                        <div class="card shadow mb-4">
+                          <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Results </h6>
+                          </div>
+                          <div class="card-body">
+                            <span>
+
+                              <img src="cluster/aglo_3.png" height="360px" width="480px" alt="Aglo 3 Image">
+
+                            </span>
+
+                            <span>
+
+                              <img src="cluster/aglo_4.png" height="360px" width="480px" alt="Aglo 4 Image">
+
+                            </span>
+                            
+                          </div>
+                        </div>
+
+                </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of row -->
+          </div>            
+
+        </div>
 
 
           </div>
