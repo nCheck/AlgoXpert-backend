@@ -128,8 +128,8 @@ def predict():
             X_principal = xnormalize(data)
 
             result = clustering(X_principal)
-
-            return render_template('cluster_analysis.html')
+            print(result)
+            return render_template('cluster_analysis.html' , result = result)
             # return "Done"
 
         if antype == 'Association':
@@ -178,13 +178,7 @@ def predict():
         
         else:
 
-            data = preprocess('data.txt', None , UNWANTED )
-            X_principal = normalize(data)
-
-            result = clustering(X_principal)
-
-            # return render_template('cluster_analysis.html')
-            return "Done"
+            return "Invalid Choice"
         
       
 
