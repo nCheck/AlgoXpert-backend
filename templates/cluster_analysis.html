@@ -67,6 +67,116 @@
           <!-- Page Heading -->
           <!-- Content Row -->
           <div class="row">
+
+
+            <div class=" col-lg-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#c2" class="d-block card-header py-3 collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="c2">
+                  <h6 class="m-0 font-weight-bold text-primary"> Kmeans </h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse" id="c2">
+                  <div class="card-body">
+                  <div class="row">
+                      <div class=" col-lg-6">
+  
+                          <!-- Basic Card Example -->
+                          <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                              <h6 class="m-0 font-weight-bold text-primary">Algorithm</h6>
+                            </div>
+                            <div class="card-body">
+                              <ul>
+                                  <li>
+                                    K-Means clustering is an unsupervised learning algorithm that, as the name hints, finds a fixed number (k) of clusters in a set of data. 
+                                  </li>
+                                  <li>
+                                    K-Means finds k number of centroids, and then assigns all data points to the closest cluster, with the aim of keeping the centroids small.
+                                  </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+            
+                        <div class=" col-lg-6">
+            
+                          <!-- Basic Card Example -->
+                          <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                              <h6 class="m-0 font-weight-bold text-primary">Pros & Cons</h6>
+                            </div>
+                            <div class="card-body">
+                              <h3>Pros</h3>
+                              <ul>
+                                <li> Widely used method for cluster analysis </li>
+                                <li> Easy to understand </li>
+                                <li> Trains quickly </li>
+                              </ul>
+  
+                              <h3>Cons</h3>
+                              <ul>
+                                <li>
+                                  Euclidean distance is not ideal in many applications
+                                </li>
+                                <li>
+                                  Performance is (generally) not competitive with the best clustering methods
+                                </li>
+                                <li>
+                                  Small variations in the data can result in a completely different clusters (high variance)
+                                </li>
+                              </ul>
+  
+                            </div>
+                          </div>
+                        </div>
+            
+                        <div class=" col-lg-6">
+            
+                          <!-- Basic Card Example -->
+                          <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                              <h6 class="m-0 font-weight-bold text-primary">Elbow Method</h6>
+                            </div>
+                            <div class="card-body">
+  
+                              <img src="{{ result.kmean }}" height="360px" width="480px" alt="Elbow Image">
+                              <input type="text" id="knum" value="4"/>
+                              <button id="kbutton"> Generate </button>
+  
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class=" col-lg-6">
+            
+                          <!-- Basic Card Example -->
+                          <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                              <h6 class="m-0 font-weight-bold text-primary">Clusters</h6>
+                            </div>
+                            <div class="card-body">
+  
+                              <img src="img/loading.gif" id="loading_k" height="250" width="250" alt="Loading...">
+                              <div id="kcluster">
+
+                              </div>
+
+
+                            </div>
+                          </div>
+                        </div>
+            
+
+                  </div>
+                </div>
+              </div>
+              <!-- end of row -->
+            </div>            
+  
+          </div>
+
+
               <div class=" col-lg-12">
                   <div class="card shadow mb-4">
                     <!-- Card Header - Accordion -->
@@ -318,6 +428,29 @@
 
   <!-- Page level plugins -->
   <script src="vendor/chart.js/Chart.min.js"></script>
+
+  <script>
+
+    $('#loading_k').hide();
+
+    $('#kbutton').click( function () {
+      
+      $('#loading_k').fadeIn();
+
+      var num = $('#knum').val();
+      var url = "/kmeans/"+num;
+
+      $.get(url , function(data){
+        $('#loading_k').hide();
+
+        var text = ' <img src="' + data.figure + '" height="360px" width="480px" alt="Dendo Image"> '
+
+        $('#kcluster').html(text);
+
+      })
+
+    })
+  </script>
 
 
 </body>

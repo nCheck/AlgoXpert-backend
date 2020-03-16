@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 from sklearn.cluster import DBSCAN 
 from sklearn.decomposition import PCA 
-from sklearn.cluster import AgglomerativeClustering 
+from sklearn.cluster import AgglomerativeClustering , KMeans
 from sklearn.preprocessing import StandardScaler, normalize 
 from sklearn.metrics import silhouette_score 
 import scipy.cluster.hierarchy as shc 
@@ -86,6 +86,41 @@ def dbscan(X_principal , failed = False):
 
 
 
+
+
+def kmeans_cluster( X_principal , n_cluster):
+
+    X = X_principal
+    kmeans = KMeans(n_clusters=n_cluster, init='k-means++', max_iter=25, n_init=10, random_state=0)
+    pred_y = kmeans.fit_predict(X)
+    
+    plt.figure(figsize =(6, 6)) 
+    plt.scatter(X_principal['P1'], X_principal['P2'])
+    plt.title('Number of Clusters = ' + str(n_cluster))
+    plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s=300, c='red')
+    name = 'kmean_clust' + str(int(random()*15)) + '.png'
+    plt.savefig('static/cluster/'+name)
+
+    return name
+
+
+def kmeans(X_principal):
+    wcss = []
+    for i in range(1, 25):
+        kmeans = KMeans(n_clusters=i, init='k-means++', max_iter=15, n_init=10, random_state=0)
+        kmeans.fit(X_principal)
+        wcss.append(kmeans.inertia_)
+
+    plt.figure(figsize =(6, 6))  
+    plt.plot(range(1, 25), wcss)
+    plt.title('Elbow Method')
+    plt.xlabel('Number of clusters')
+    plt.ylabel('WCSS')
+    name = 'kmeans' + str(int(random()*15)) + '.png'
+    plt.savefig('static/cluster/'+name)
+
+    return name
+
 def aglo(X_principal):
 
 
@@ -137,5 +172,7 @@ def clustering(X_principal):
     call('rm -r static/cluster/*.png',shell=True)
     dbsc = dbscan(X_principal)
     dendo , algo_3 , algo_4 = aglo(X_principal)
+    kmean = kmeans(X_principal)
     
-    return { "dendo" : "cluster/"+dendo , "algo_3" : "cluster/"+algo_3 , "algo_4" : "cluster/"+algo_4 , "dbscan" : "cluster/"+dbsc }
+    return { "dendo" : "cluster/"+dendo , "algo_3" : "cluster/"+algo_3 ,
+             "algo_4" : "cluster/"+algo_4 , "dbscan" : "cluster/"+dbsc , "kmean" : "cluster/"+kmean }

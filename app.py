@@ -11,7 +11,7 @@ import random
 from preprocessor import preprocess , findHeaderAndSEP , xnormalize
 from classifier import classify
 from regressor import regression
-from clusterer import clustering
+from clusterer import clustering , kmeans_cluster
 from algo_data import getStats
 
 import re
@@ -183,6 +183,21 @@ def predict():
       
 
 
+@app.route('/kmeans/<num>', methods=['GET'])
+def km(num):
+    
+    num = int(num)
+    data = preprocess('data.txt', None , [] )
+    X_principal = xnormalize(data)
+    km_name = kmeans_cluster(X_principal , num)
+
+    return {"figure": "cluster/" + km_name}
+
+
+@app.route('/clustest', methods=['GET'])
+def clustest():
+    result = {'dendo': 'cluster/dendo5.png', 'algo_3': 'cluster/aglo_33.png', 'algo_4': 'cluster/aglo_44.png', 'dbscan': 'cluster/dbscan14.png', 'kmean': 'cluster/kmeans8.png'}
+    return render_template('cluster_analysis.html' , result = result)
 
 
 
