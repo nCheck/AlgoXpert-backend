@@ -30,7 +30,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 
-
+MODELS = {}
 
 
 @app.route('/test', methods=['GET','POST'])
@@ -95,6 +95,9 @@ def details():
         cols = [ i for i in range( len(arr) ) ]
 
     f.close()
+
+    session['labels'] = list(cols)
+
     print(cols , HEADER , SEP , line)
 
     return render_template('form.html' , l = len(cols) , cols = cols)
@@ -109,6 +112,8 @@ def predict():
         antype = request.form['antype']
         TARGET = request.form['target']
 
+        session['target'] = TARGET
+
         vals = request.form.keys()
         UNWANTED = []
 
@@ -117,6 +122,7 @@ def predict():
             TARGET = int(TARGET)
         except:
             pass
+        
 
         for v in vals:
             if request.form[v] == 'on':
@@ -147,9 +153,13 @@ def predict():
 
         if antype == 'Classification':
 
-            result = classify( x_train,x_test,y_train,y_test )
+            result , models = classify( x_train,x_test,y_train,y_test )
+
             labels = list(result.keys())
             values = list(result.values())
+
+            MODELS = models
+            
 
             for i in range(4):
                 values[i] = 100 * values[i]
@@ -163,9 +173,11 @@ def predict():
 
         elif antype == 'Regression':
 
-            result = regression( x_train,x_test,y_train,y_test )
+            result , models = regression( x_train,x_test,y_train,y_test )
             labels = list(result.keys())
             values = list(result.values())
+
+            MODELS = models
 
             MAX = max(values) + 4
 
@@ -194,10 +206,32 @@ def km(num):
     return {"figure": "cluster/" + km_name}
 
 
+@app.route('/testresult', methods=['POST'])
+def test_result():
+
+    labels = session['labels']
+
+    testData = []
+
+    print(request.form)
+    # for l in labels:
+    #     testData.append( request.form[l] )
+    
+
+    # for mod in MODELS.keys():
+    #     res = MODELS[mod].predict( [testData] )
+    #     print(res)
+
+    return "done"
+
 @app.route('/clustest', methods=['GET'])
 def clustest():
+
+    labels = session['labels']
+    labels.remove( session['target'] )
+    # labels = ["hel" , "temo"]
     result = {'dendo': 'cluster/dendo5.png', 'algo_3': 'cluster/aglo_33.png', 'algo_4': 'cluster/aglo_44.png', 'dbscan': 'cluster/dbscan14.png', 'kmean': 'cluster/kmeans8.png'}
-    return render_template('cluster_analysis.html' , result = result)
+    return render_template('cluster_analysis.html' , result = result , labels = labels)
 
 
 

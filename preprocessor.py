@@ -29,7 +29,10 @@ def preprocess( FILE , TARGET , UNWANTED ):
     # Keep Data with Finite Target
 
     if TARGET is not None:
-        data = data[ np.isfinite( data[TARGET] ) ]
+        try:
+            data = data[ np.isfinite( data[TARGET] ) ]
+        except:
+            pass
 
     #Remove more than half missing data
 

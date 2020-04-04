@@ -4,6 +4,9 @@ from sklearn import ensemble
 from sklearn import linear_model
 from sklearn.metrics import accuracy_score
 
+modelPack = {}
+
+
 def trees( x_train, x_test, y_train, y_test ):
 
     res = []
@@ -14,12 +17,16 @@ def trees( x_train, x_test, y_train, y_test ):
     predictions = m.predict(x_test)
     acc = accuracy_score(y_test,predictions)
 
+    modelPack['DecisionTreeClassifier'] = m
+
     res.append( ( acc , "DecisionTreeClassifier" ) )
 
     m = tree.ExtraTreeClassifier()
     m.fit(x_train, y_train)
     predictions = m.predict(x_test)
     acc = accuracy_score(y_test,predictions)
+
+    modelPack['ExtraTreeClassifier'] = m
 
     res.append( ( acc , "ExtraTreeClassifier" ) )
 
@@ -36,6 +43,8 @@ def ensembles( x_train, x_test, y_train, y_test ):
     predictions = m.predict(x_test)
     acc = accuracy_score(y_test,predictions)
 
+    modelPack['AdaBoostClassifier'] = m
+
     res.append( ( acc , "AdaBoostClassifier" ) )
 
     # print(res)
@@ -45,6 +54,8 @@ def ensembles( x_train, x_test, y_train, y_test ):
     predictions = m.predict(x_test)
     acc = accuracy_score(y_test,predictions)
 
+    modelPack['BaggingClassifier'] = m
+
     res.append( ( acc , "BaggingClassifier" ) )
 
 
@@ -52,6 +63,8 @@ def ensembles( x_train, x_test, y_train, y_test ):
     m.fit(x_train, y_train)
     predictions = m.predict(x_test)
     acc = accuracy_score(y_test,predictions)
+
+    modelPack['GradientBoostingClassifier'] = m
 
     res.append( ( acc , "GradientBoostingClassifier" ) )
 
@@ -66,6 +79,8 @@ def lines( x_train, x_test, y_train, y_test ):
     predictions = m.predict(x_test)
     acc = accuracy_score(y_test,predictions)
 
+    modelPack['RidgeClassifier'] = m
+
     res.append( ( acc , "RidgeClassifier" ) )
 
 
@@ -73,6 +88,9 @@ def lines( x_train, x_test, y_train, y_test ):
     m.fit(x_train, y_train)
     predictions = m.predict(x_test)
     acc = accuracy_score(y_test,predictions)
+
+
+    modelPack['SGDClassifier'] = m
 
     res.append( ( acc , "SGDClassifier" ) )
 
@@ -92,21 +110,11 @@ def classify( x_train, x_test, y_train, y_test ):
 
     print(res)
 
+    models = {}
+
     for val , name in res[:4]:
         result[name] = val
+        models[name] = modelPack[name]
 
 
-    return result
-
-
-
-
-
-
-
-
-
-
-
-
-    return result
+    return result , models

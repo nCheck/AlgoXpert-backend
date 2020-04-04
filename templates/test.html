@@ -1,7 +1,70 @@
 <link href="static/scss/loading.scss" type="text/css" rel="stylesheet">
 
 <div class="LoaderBalls">
-	<div class="LoaderBalls__item"></div>
-	<div class="LoaderBalls__item"></div>
-	<div class="LoaderBalls__item"></div>
+	<div class=" col-lg-12">
+		<div class="card shadow mb-4">
+		  <!-- Card Header - Accordion -->
+		  <a href="#c4" class="d-block card-header py-3 collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="c4">
+			<h6 class="m-0 font-weight-bold text-primary"> Custom Tester </h6>
+		  </a>
+		  <!-- Card Content - Collapse -->
+		  <div class="collapse" id="c4">
+			<div class="card-body">
+			<div class="row">
+				<div class=" col-lg-6">
+
+					<!-- Basic Card Example -->
+					<div class="card shadow mb-4">
+					  <div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary"> Input Form </h6>
+					  </div>
+					  <div class="card-body">
+
+						<form action="/testresult" method="POST">
+
+						  
+						  {% for n in labels %}
+						  <div class=" col-2"> <label> {{n}} </label> </div>
+						  <div class=" col-2"> <input type="text" name="{{n}}"/> </div>                           
+						   <br>
+						  {% endfor %}
+						  
+						  <div class=" col-2 ml-5 "> <label> 
+							<button class="form-check-input btn btn-primary " type="button" id="test">Submit</button>
+						  </label> </div>
+						  
+						  
+						</form>
+						<br>
+
+					  </div>
+					</div>
+				  </div>
+	  
+				  <div class=" col-lg-6">
+	  
+					<!-- Basic Card Example -->
+					<div class="card shadow mb-4">
+					  <div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary"> Results </h6>
+					  </div>
+					  <div class="card-body">
+
+					  </div>
+					</div>
+				  </div>
+	  
+				  <div class=" col-lg-6">
+	  
+
+
+				  </div>
+			</div>
+		  </div>
+		</div>
+		<!-- end of row -->
+	  </div>            
+
+	</div>
+
 </div>

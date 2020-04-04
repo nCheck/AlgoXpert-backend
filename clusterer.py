@@ -24,7 +24,7 @@ def dbscan(X_principal , failed = False):
     eps = 0.001
 
     done = False
-    while eps < 0.02:
+    while eps < 0.03:
         
         eps += 0.0025
         
@@ -38,6 +38,7 @@ def dbscan(X_principal , failed = False):
             # Number of clusters in labels, ignoring noise if present. 
             n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
             
+            print("current clusters ", n_clusters_)
             if (n_clusters_ < 10 or n_clusters_ > 15) and not failed:
                 continue
 
